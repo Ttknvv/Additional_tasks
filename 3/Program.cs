@@ -140,26 +140,32 @@ void Zadacha_11()
     " " + firstMass[1,0] + " " +firstMass[1,1] + " " + firstInd + " " + secondInd*/);
     
     //Поиск расстояния по теореме Пифагора
-    double radPoint(double[,] array,int pointInd, int x, int y)
+    double radPoint(double[,] array,int pointInd)
     {
         return Math.Sqrt(array[pointInd, 0] * array[pointInd, 0] + array[pointInd, 1] * array[pointInd, 1]);
     }
 
     //Выводит индекс ближайшей точки
-    double MinRad(double[,] array, int x, int y)
+    double MinRad(double[,] array)
     {
-        double min = radPoint(array, 0, x, y);
+        double min = radPoint(array, 0);
         int minInd = 0;
         for(int i = 0; i < array.Length / 2; i++)
         {
-            if(radPoint(array, i, x, y) < min)
+            if(radPoint(array, i) < min)
             {
+                min = radPoint(array, i);
                 minInd = i;
             }
         }
         return minInd;
     }
     
+
+
+
+
+    /*
     //Отнимает от координат точек заданные значения (смещаю центр координат к предыдущей точке)
     double[,] MasPath(double[,] array, double xCorOfPoint, double yCorOfPoint)
     {
@@ -173,7 +179,7 @@ void Zadacha_11()
         return array;
     }
 
-    double firstInd = MinRad(point, 3, 2); 
+    double firstInd = MinRad(point); 
 
     Console.WriteLine(firstInd);
 
@@ -181,29 +187,38 @@ void Zadacha_11()
     int b = 0;
     double[,] firstMass = new double[2, 2];
 
-    double[,] pointMas = new double [3,2];
-
     //Записваю данные в новый массив firstMass
-    while(n != 2)
+    while(n < 2)
     {
         for(int i = 0; i < 2; i++)
         {
-            if(b != firstInd)
+            if(n != firstInd)
             {
-                firstMass[n, i] = pointMas[b, i];
-                n++;
+                firstMass[n, i] = point[b, i];
+                b++;
             }
         }
-        b++;
+        n++;
+        b = b/2;
+        Console.WriteLine("Число" + " " + b);
     }
+
+    Console.WriteLine("Мак " + firstMass[0,0] + " " + firstMass[0,1] + " " + firstMass[1,0] + " " + firstMass[1,1]);
 
     firstMass = MasPath(firstMass, point[Convert.ToInt32(firstInd), 0], point[Convert.ToInt32(firstInd), 1]);   
     
-    double secondInd = MinRad(firstMass, 2, 2);
-    if(firstInd == 1)
+    double secondInd = MinRad(firstMass);
+
+    //
+    if(firstInd == 1 && secondInd == 1)
     {
-        secondInd = secondInd + 1
+        secondInd = secondInd + 1;
     }
+    else if(firstInd == 0)
+    {
+        secondInd = secondInd + 1;
+    }
+
     double endInd = 3 - secondInd - firstInd;
 
     Console.WriteLine(firstInd + " " + secondInd + " " + endInd);
@@ -213,7 +228,7 @@ void Zadacha_11()
     Console.WriteLine(point[0,0] + " " + point[0,1] + " " + point[1,0] + " " + 
     point[1,1] + " " + point[2,0] + " " + point[2,1] + " " + firstMass[0,0] + " " + firstMass[0,1] + 
     " " + firstMass[1,0] + " " +firstMass[1,1] + " " + firstInd + " " + secondInd);
-    
+    */
 }
 
 Zadacha_11();
